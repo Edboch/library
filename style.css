@@ -1,0 +1,71 @@
+:root {
+    --dark-brown:#5a544c;
+    --light-brown: #d4c0a0;
+}
+
+
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: var(--light-brown);
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+.container {
+    display: grid;
+    height: 100vh;
+    width: min(1000px, 80vw);
+    grid-template-rows: 10vh 1fr;
+    margin: 0 auto;
+    
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+}
+
+header > h1 {
+    margin: 0;
+    color: var(--dark-brown);
+}
+
+button {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 3px solid var(--dark-brown);
+    color: var(--dark-brown);
+    background-color: var(--light-brown);
+}
+
+button:hover {
+    background-color: var(--dark-brown);
+    color: var(--light-brown);
+}
+
+button:active {
+    opacity: 0.9;
+}
+
+.books {
+    margin-bottom: 2vh;
+    padding: 30px;
+    box-shadow: rgb(43, 42, 42) 0px 0px 10px;
+    background-color: #fff;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    align-content: start;
+    gap: 12px;
+}
+
+.book-card {
+    padding: 12px;
+    border: 1px solid black;
+}
