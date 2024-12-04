@@ -5,9 +5,49 @@ function Book(title,author,pages,read) {
     this.read = read;
 }
 
+const booksContainer = document.querySelector('.books');
+const addBookBtn = document.querySelector('#new-book');
+const addBookModal = document.getElementById('add-book-modal');
+const titleInput = addBookModal.querySelector('#title-input');
+const authorInput = addBookModal.querySelector('#author-input');
+const pagesInput = addBookModal.querySelector('#pages-input');
+const readInput = addBookModal.querySelector('#read-input');
+const closeBtn = addBookModal.querySelector('#close-modal');
+const submitBtn = addBookModal.querySelector('#submit-modal');
+
 function addBookToLibrary(title,author,pages,read) {
     const newBook = new Book(title,author,pages,read);
     myLibrary.push(newBook);
+}
+
+function changeRead(event) {
+    const index = event.target.parentNode.getAttribute('data-index');
+    const book = myLibrary[index]
+    const bookCard = document.querySelector(`div[data-index='${index}']`);
+    const readStatus = bookCard.querySelector('.read-status');
+    const readChangeBtn = bookCard.querySelector('.read-change-btn');
+
+    book.read = !book.read;
+    readStatus.textContent = book.read?'Finished Reading': 'Not Finished';
+    readChangeBtn.textContent = book.read? 'Not Read': 'Read';
+}
+
+function deleteCard(event) {
+    const index = event.target.parentNode.getAttribute('data-index');
+    myLibrary.splice(index,1);
+    updateBookTable();
+}
+
+function updateBookTable() {
+    booksContainer.innerHTML = '';
+    myLibrary.forEach(addBookCard);
+}
+
+function clearModal() {
+    titleInput.value = '';
+    authorInput.value = '';
+    pagesInput.value = '';
+    readInput.checked = false;  
 }
 
 function addBookCard(book,index) {
@@ -17,72 +57,57 @@ function addBookCard(book,index) {
     const totalPages = document.createElement('p');
     const read = document.createElement('p');
     const deleteBtn = document.createElement('button');
-    const readBtn = document.createElement('button');
+    const readChangeBtn = document.createElement('button');
 
     bookCard.classList.add('book-card');
-    bookCard.setAttribute('id',`card-${index}`);
+    bookCard.setAttribute('data-index',`${index}`);
     title.classList.add('title');
     author.classList.add('author');
     totalPages.classList.add('total-pages');
     read.classList.add('read-status');
-    deleteBtn.setAttribute('data-index',`${index}`);
-    readBtn.classList.add('change-read-status');
+    deleteBtn.classList.add('delete-btn');
+    readChangeBtn.classList.add('read-change-btn');
     
     title.textContent = book.title;
     author.textContent = book.author;
     totalPages.textContent = book.pages;
-    read.textContent = book.read === 'read'? 'Finished Reading': 'Not Finished';
+    read.textContent = book.read? 'Finished Reading': 'Not Finished';
     deleteBtn.textContent = 'Delete';
-    readBtn.textContent = read.textContent === 'Finished Reading'? 'Not Read': 'Read';
-    deleteBtn.addEventListener('click',()=>{});
-    readBtn.addEventListener('click',()=>{});
+    readChangeBtn.textContent = book.read? 'Not Read': 'Read';
+    deleteBtn.addEventListener('click',deleteCard);
+    readChangeBtn.addEventListener('click',changeRead);
 
-    bookCard.append(title,author,totalPages,read,deleteBtn,readBtn);
+    bookCard.append(title,author,totalPages,read,deleteBtn,readChangeBtn);
     booksContainer.append(bookCard);
 }
 
+// Initial Library
 const myLibrary = [];
 
-addBookToLibrary('The Hobbit','J.R.R',295,'Reading');
-addBookToLibrary('Wicked','Gregory Maguire',512,'Reading');
-addBookToLibrary('Butter','Asako Yuzuki',464,'Reading');
+addBookToLibrary('The Hobbit','J.R.R',295,true);
+addBookToLibrary('Wicked','Gregory Maguire',512,false);
+addBookToLibrary('Butter','Asako Yuzuki',464,true);
 
-const booksContainer = document.querySelector('.books');
-const addBookBtn = document.querySelector('#new-book');
+updateBookTable();
 
-// Modal popup
-const addBookModal = document.getElementById('add-book-modal');
-const titleInput = addBookModal.querySelector('#title-input');
-const authorInput = addBookModal.querySelector('#author-input');
-const pagesInput = addBookModal.querySelector('#pages-input');
-const readInput = addBookModal.querySelector('#read-input');
-const closeBtn = addBookModal.querySelector('#close-modal');
-const submitBtn = addBookModal.querySelector('#submit-modal');
-
-
-
+// Event Listeners
 addBookBtn.addEventListener('click', () => {
     addBookModal.showModal();
 });
 
 submitBtn.addEventListener('click',(event) => {
     event.preventDefault();
-    const newBook = new Book(titleInput.value,authorInput.value,pagesInput.value,readInput.value);
+    const title = titleInput.value;
+    const author = authorInput.value;
+    const pages = pagesInput.value;
+    const read = readInput.checked
+    const newBook = new Book(title,author,pages,read);
     myLibrary.push(newBook);
+    clearModal();
+    addBookModal.close();
     updateBookTable();
 })
 
 closeBtn.addEventListener('click',()=>{
     addBookModal.close();
 });
-
-function updateBookTable() {
-    booksContainer.innerHTML = '';
-    myLibrary.forEach(addBookCard);
-}
-
-updateBookTable();
-// style the modal
-// add button and cancel button functionality
-// rename some of the html element class and ids
-// adding new book should update the ui
