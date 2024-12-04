@@ -10,9 +10,31 @@
 <body>
     <div class="container">
         <header>
-            <h1 class="Title">My Library</h1>
-            <button type="button" class="add-book">Add Book</button>
+            <h1 class="title">My Library</h1>
+            <button type="button" id="new-book">New Book</button>
         </header>
+        <dialog id="add-book-modal">
+            <h1>Add new book</h1>
+            <form action="" method="dialog">
+                <div>
+                    <label for="title-input">Title: </label>
+                    <input type="text" id="title-input" name="title-input" required>
+                </div>
+                <div>
+                    <label for="author-input">Author: </label>
+                    <input type="text" id="author-input" name="author-input">
+                </div>
+                <div>
+                    <label for="pages-input">Number of pages: </label>
+                    <input type="text" id="pages-input" name="pages-input">
+                </div>
+
+                <input type="checkbox" id="read-input" value="read">
+                <label for="read-input">Finished reading?</label>
+                <button class="modal-btn" id="submit-modal" type="submit">Add Book</button>
+                <button class="modal-btn" id="close-modal" type="button">Cancel</button>
+            </form>
+        </dialog>
         <div class="books"></div>
     </div>
 </body>
