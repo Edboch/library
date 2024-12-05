@@ -1,9 +1,9 @@
 :root {
-    --dark-brown:#47433d;
+    --dark-brown:#3b3935;
     --light-brown: #d4c0a0;
 }
 
-* {
+*:not(dialog) {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -80,7 +80,8 @@ button#new-book:active {
 .title,
 .author,
 .total-pages,
-.read-status {
+.read-status,
+dialog {
     overflow-wrap: break-word;
     font-family: 'Times New Roman', Times, serif;
 }
@@ -90,17 +91,38 @@ button#new-book:active {
     margin-bottom: 5px;
 }
 
-.card-btns {
+
+.card-btns,
+.modal-btns {
     margin-top: 20px;
     display: flex;
     gap: 5px;
     justify-content: end;
 }
 
-.card-btns button {
+.card-btns button,
+.modal-btns button {
+    font-weight: 700;
     padding: 10px;
     border: 1px solid #000;
     background-color: #000;
     color: #fff;
     box-shadow: #a1a1a1 1px 1px 5px;
+}
+
+.card-btns button:active,
+.modal-btns button:active {
+    opacity: .7;
+}
+
+dialog > form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form > .modal-textbox {
+    display: flex;
+    flex-direction: column;
 }

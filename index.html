@@ -16,25 +16,27 @@
         <dialog id="add-book-modal">
             <h1>Add new book</h1>
             <form action="" method="dialog">
-                <div>
+                <div class="modal-textbox">
                     <label for="title-input">Title: </label>
                     <input type="text" id="title-input" name="title-input" required>
                 </div>
-                <div>
+                <div class="modal-textbox">
                     <label for="author-input">Author: </label>
                     <input type="text" id="author-input" name="author-input">
                 </div>
-                <div>
+                <div class="modal-textbox">
                     <label for="pages-input">Number of pages: </label>
                     <input type="text" id="pages-input" name="pages-input">
                 </div>
 
-                <div>
+                <div class="modal-checkbox">
                     <input type="checkbox" id="read-input">
                     <label for="read-input">Finished reading?</label>
                 </div>  
-                <button class="modal-btn" id="submit-modal" type="submit">Add Book</button>
-                <button class="modal-btn" id="close-modal" type="button">Cancel</button>
+                <div class="modal-btns">
+                    <button id="submit-modal" type="submit">Add Book</button>
+                    <button id="close-modal" type="button">Cancel</button>
+                </div>
             </form>
         </dialog>
         <div class="books"></div>
