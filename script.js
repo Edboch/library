@@ -21,15 +21,16 @@ function addBookToLibrary(title,author,pages,read) {
 }
 
 function changeRead(event) {
-    const index = event.target.parentNode.getAttribute('data-index');
+    const index = event.target.parentNode.parentNode.getAttribute('data-index');
     const book = myLibrary[index]
     const bookCard = document.querySelector(`div[data-index='${index}']`);
+    console.log(bookCard)
     const readStatus = bookCard.querySelector('.read-status');
     const readChangeBtn = bookCard.querySelector('.read-change-btn');
 
     book.read = !book.read;
     readStatus.textContent = book.read?'Finished Reading': 'Not Finished';
-    readChangeBtn.textContent = book.read? 'Not Read': 'Read';
+    readChangeBtn.textContent = book.read? 'Not Read': 'Finished';
 }
 
 function deleteCard(event) {
@@ -53,9 +54,10 @@ function clearModal() {
 function addBookCard(book,index) {
     const bookCard = document.createElement('div');
     const title = document.createElement('h1');
-    const author = document.createElement('h2');
+    const author = document.createElement('h3');
     const totalPages = document.createElement('p');
     const read = document.createElement('p');
+    const cardBtns = document.createElement('div');
     const deleteBtn = document.createElement('button');
     const readChangeBtn = document.createElement('button');
 
@@ -65,19 +67,22 @@ function addBookCard(book,index) {
     author.classList.add('author');
     totalPages.classList.add('total-pages');
     read.classList.add('read-status');
+    cardBtns.classList.add('card-btns');
     deleteBtn.classList.add('delete-btn');
     readChangeBtn.classList.add('read-change-btn');
     
     title.textContent = book.title;
     author.textContent = book.author;
-    totalPages.textContent = book.pages;
+    totalPages.textContent = "Number of pages: " + book.pages;
     read.textContent = book.read? 'Finished Reading': 'Not Finished';
     deleteBtn.textContent = 'Delete';
     readChangeBtn.textContent = book.read? 'Not Read': 'Read';
     deleteBtn.addEventListener('click',deleteCard);
     readChangeBtn.addEventListener('click',changeRead);
 
-    bookCard.append(title,author,totalPages,read,deleteBtn,readChangeBtn);
+
+    cardBtns.append(deleteBtn,readChangeBtn);
+    bookCard.append(title,author,totalPages,read,cardBtns);
     booksContainer.append(bookCard);
 }
 

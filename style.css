@@ -1,13 +1,15 @@
 :root {
-    --dark-brown:#5a544c;
+    --dark-brown:#47433d;
     --light-brown: #d4c0a0;
 }
 
-
-body {
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+body {
     background-color: var(--light-brown);
     font-size: 16px;
     font-family: sans-serif;
@@ -32,9 +34,10 @@ header {
 header > h1 {
     margin: 0;
     color: var(--dark-brown);
+    font-size: 3rem;
 }
 
-button {
+button#new-book {
     font-size: 1rem;
     font-weight: 600;
     padding: 10px 20px;
@@ -44,12 +47,12 @@ button {
     background-color: var(--light-brown);
 }
 
-button:hover {
+button#new-book:hover {
     background-color: var(--dark-brown);
     color: var(--light-brown);
 }
 
-button:active {
+button#new-book:active {
     opacity: 0.9;
 }
 
@@ -68,4 +71,36 @@ button:active {
 .book-card {
     padding: 12px;
     border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    box-shadow: black 5px 5px;
+}
+
+.title,
+.author,
+.total-pages,
+.read-status {
+    overflow-wrap: break-word;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.book-card > p:first-of-type{
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.card-btns {
+    margin-top: 20px;
+    display: flex;
+    gap: 5px;
+    justify-content: end;
+}
+
+.card-btns button {
+    padding: 10px;
+    border: 1px solid #000;
+    background-color: #000;
+    color: #fff;
+    box-shadow: #a1a1a1 1px 1px 5px;
 }
