@@ -15,18 +15,18 @@
         </header>
         <dialog id="add-book-modal">
             <h1>Add new book</h1>
-            <form action="" method="dialog">
+            <form action="" method="dialog" id="add-book-form">
                 <div class="modal-textbox">
                     <label for="title-input">Title: </label>
                     <input type="text" id="title-input" name="title-input" required>
                 </div>
                 <div class="modal-textbox">
                     <label for="author-input">Author: </label>
-                    <input type="text" id="author-input" name="author-input">
+                    <input type="text" id="author-input" name="author-input" required>
                 </div>
                 <div class="modal-textbox">
                     <label for="pages-input">Number of pages: </label>
-                    <input type="text" id="pages-input" name="pages-input">
+                    <input type="tel" id="pages-input" name="pages-input" pattern="\d+" required>
                 </div>
 
                 <div class="modal-checkbox">

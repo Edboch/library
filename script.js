@@ -10,12 +10,12 @@ class Book {
 const booksContainer = document.querySelector('.books');
 const addBookBtn = document.querySelector('#new-book');
 const addBookModal = document.getElementById('add-book-modal');
-const titleInput = addBookModal.querySelector('#title-input');
-const authorInput = addBookModal.querySelector('#author-input');
-const pagesInput = addBookModal.querySelector('#pages-input');
-const readInput = addBookModal.querySelector('#read-input');
-const closeBtn = addBookModal.querySelector('#close-modal');
-const submitBtn = addBookModal.querySelector('#submit-modal');
+const addBookForm = document.getElementById('add-book-form');
+const titleInput = addBookForm.querySelector('#title-input');
+const authorInput = addBookForm.querySelector('#author-input');
+const pagesInput = addBookForm.querySelector('#pages-input');
+const readInput = addBookForm.querySelector('#read-input');
+const closeBtn = addBookForm.querySelector('#close-modal');
 
 function addBookToLibrary(title,author,pages,read) {
     const newBook = new Book(title,author,pages,read);
@@ -36,7 +36,8 @@ function changeRead(event) {
 }
 
 function deleteCard(event) {
-    const index = event.target.parentNode.getAttribute('data-index');
+    const index = event.target.parentNode.parentNode.getAttribute('data-index');
+    console.log(index);
     myLibrary.splice(index,1);
     updateBookTable();
 }
@@ -102,8 +103,18 @@ addBookBtn.addEventListener('click', () => {
     addBookModal.showModal();
 });
 
-submitBtn.addEventListener('click',(event) => {
-    event.preventDefault();
+closeBtn.addEventListener('click',()=>{
+    addBookModal.close();
+});
+
+pagesInput.addEventListener('input', () => {
+    pagesInput.setCustomValidity('');
+    if (pagesInput.validity.patternMismatch) {
+        pagesInput.setCustomValidity('Only Numbers');
+    }
+})
+
+addBookForm.addEventListener('submit',() => {
     const title = titleInput.value;
     const author = authorInput.value;
     const pages = pagesInput.value;
@@ -114,7 +125,3 @@ submitBtn.addEventListener('click',(event) => {
     addBookModal.close();
     updateBookTable();
 })
-
-closeBtn.addEventListener('click',()=>{
-    addBookModal.close();
-});
